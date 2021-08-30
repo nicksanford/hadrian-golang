@@ -39,7 +39,7 @@ purposes.
 #### shell 1: database
 *THIS IS ONLY OK FOR TEST PURPOSES* Change your passwords if you are using this for anything outside of testing.
 ```bash
-docker run -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:13.4 -c wal_level=logical
+docker run --name postgres_hadrian_test -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:13.4 -c wal_level=logical
 ```
 
 
