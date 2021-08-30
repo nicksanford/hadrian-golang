@@ -92,6 +92,7 @@ docker exec -it postgres_hadrian_test pgbench -h localhost -p 5432 -i -U postgre
 - [ ] All business logic is in the `cmd/` directory, I need to split business logic out of the cli modules & make it so that cmd only calls into that business logc
 - [ ] Provide more output adapters than just stdout, consider also SNS to start.
 - [ ] Allow more serialization formats than just json, maybe also MessagePack?
+- [ ] CLI command docs still have cobra default text
 
 ## Credits:
 Hadrian is a wrapper around @jackc's fantastic pglogrepl and was
