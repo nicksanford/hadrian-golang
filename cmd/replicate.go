@@ -98,6 +98,8 @@ func replicate(url string) {
 				if pkm.ReplyRequested {
 					nextStandbyMessageDeadline = time.Time{}
 				}
+			// TODO: Keep track of what data has & has not been comitted &
+			// only publish committed data
 			case pglogrepl.XLogDataByteID:
 				xld, err := pglogrepl.ParseXLogData(msg.Data[1:])
 				if err != nil {

@@ -58,10 +58,10 @@ var rootCmd = &cobra.Command{
 	systems without needing to change application code.
 
 	Credits:
-		Hadrian is a wrapper around @jackc's fantastic pglogrepl and was hevily
-		inspired by both cainophile: and supabase's realtime.
+		Hadrian is a wrapper around @jackc's fantastic pglogrepl and was inspired by
+		both cainophile: and supabase's realtime.
 
-	Refferences:
+	References:
 		Postgres Streaming Replication:
 		https://www.postgresql.org/docs/current/protocol-replication.html.
 
