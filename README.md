@@ -36,26 +36,25 @@ replecation. It will then run the postgres built in benchmarking utility
 `pgbench` which is a convenient way of creating some db activity for testing
 purposes.
 
-### shell 1: database
+#### shell 1: database
 *THIS IS ONLY OK FOR TEST PURPOSES* Change your passwords if you are using this for anything outside of testing.
 ```bash
 docker run -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:13.4 -c wal_level=logical
 ```
 
 
-# shell 2: replication
+####  shell 2: replication
 ```bash
 go run main.go create publication hadrian  'postgres://postgres:password@localhost/postgres?replication=database'
 go run main.go create slot hadrian  'postgres://postgres:password@localhost/postgres?replication=database'
 go run main.go replicate 'postgres://postgres:password@localhost/postgres?replication=database' -s hadrian -p hadrian > output
 ```
-
-# shell 3: load test
+#### shell 3: load test
 ```bash
 docker exec -it postgres_hadrian_test pgbench -h localhost -p 5432 -i -U postgres
 ```
 
-## Example current output (from running pgbench):
+#### Example current output (from running pgbench):
 ```jsonlines
 {"FinalLSN":59833168,"CommitTime":"2021-08-29T20:42:51.64758-04:00","Xid":516}
 {"RelationID":16435,"Namespace":"public","RelationName":"pgbench_accounts","ReplicaIdentity":100,"ColumnNum":4,"Columns":[{"Flags":0,"Name":"aid","DataType":23,"TypeModifier":4294967295},{"Flags":0,"Name":"bid","DataType":23,"TypeModifier":4294967295},{"Flags":0,"Name":"abalance","DataType":23,"TypeModifier":4294967295},{"Flags":0,"Name":"filler","DataType":1042,"TypeModifier":88}]}
