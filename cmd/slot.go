@@ -19,10 +19,49 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/nicksanford/hadrian/cmd"
+import (
+	"context"
+	"fmt"
+	"log"
 
-func main() {
-	cmd.Execute()
+	"github.com/jackc/pgconn"
+	"github.com/jackc/pglogrepl"
+	"github.com/spf13/cobra"
+)
+
+// baseSlotCmd represents the slot command
+var baseSlotCmd = &cobra.Command{
+	Use:   "slot <slot-name> <postgres_url>",
+	Short: "",
+	Long:  ``,
+	Args:  cobra.ExactArgs(2),
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("slot called with args %s", args)
+		slotName := args[0]
+		url := args[1]
+
+		switch cmd.Parent() {
+		case createCmd:
+			createSlot(slotName, url)
+			// case dropCmd:
+			// 	dropSlot(slotName, url)
+		}
+	},
+}
+
+func createSlot(slotName string, url string) {
+	conn, err := pgconn.Connect(context.Background(), url)
+	if err != nil {
+		log.Fatalln("failed to connect to Postgres server:", err)
+	}
+	defer conn.Close(context.Background())
+
+	// TODO: Allow temporary replication slot to be specified
+	_, err = pglogrepl.CreateReplicationSlot(context.Background(), conn, slotName, outputPlugin, pglogrepl.CreateReplicationSlotOptions{Temporary: false})
+
+	if err != nil {
+		log.Fatalln(err)
+	}
 }

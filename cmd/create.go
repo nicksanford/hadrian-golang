@@ -19,10 +19,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/nicksanford/hadrian/cmd"
+import (
+	"github.com/spf13/cobra"
+)
 
-func main() {
-	cmd.Execute()
+// createCmd represents the create command
+var createCmd = &cobra.Command{
+	Use: "create [publication | slot] <name> <url>",
 }
