@@ -79,18 +79,20 @@ docker exec -it postgres_hadrian_test pgbench -h localhost -p 5432 -i -U postgre
 ```
 
 ## TODO (MVP in roughly priority order):
-[ ] - Currently streaming replication messages are written as they come in, however I believe that means that it is possible for uncommitted data to be written to  the output. To handle this I think I'm going to need to keep track of what data has & has not yet been comitted & only write & ack messages which have been committed.
-[ ] - There are no tests currently
-[ ] - Currently we are serializing the `pglogrepl` structs to json which means that the content is always base64 encoded (which is not necessary for many datatypes) and also the datatypes are described using numbers, where as describing them using strings would be much more descriptive
-[ ] - Dropping replecation slots is unimplemented
-[ ] - Creating temporary replecation slots is currently not supported
-[ ] - Replecating using temporary replication slots is currently not supported
-[ ] - Allow the client to be configured via env var (for secure values such as the postgres url) and also through yaml file for the rest of the values
+
+- [ ] Currently streaming replication messages are written as they come in, however I believe that means that it is possible for uncommitted data to be written to  the output. To handle this I think I'm going to need to keep track of what data has & has not yet been comitted & only write & ack messages which have been committed.
+- [ ] There are no tests currently
+- [ ] Currently we are serializing the `pglogrepl` structs to json which means that the content is always base64 encoded (which is not necessary for many datatypes) and also the datatypes are described using numbers, where as describing them using strings would be much more descriptive
+- [ ] Dropping replecation slots is unimplemented
+- [ ] Creating temporary replecation slots is currently not supported
+- [ ] Replecating using temporary replication slots is currently not supported
+- [ ] Allow the client to be configured via env var (for secure values such as the postgres url) and also through yaml file for the rest of the values
 
 ## TODO Post MVP:
-[ ] - All business logic is in the `cmd/` directory, I need to split business logic out of the cli modules & make it so that cmd only calls into that business logc
-[ ] - Provide more output adapters than just stdout, consider also SNS to start.
-[ ] - Allow more serialization formats than just json, maybe also MessagePack?
+
+- [ ] All business logic is in the `cmd/` directory, I need to split business logic out of the cli modules & make it so that cmd only calls into that business logc
+- [ ] Provide more output adapters than just stdout, consider also SNS to start.
+- [ ] Allow more serialization formats than just json, maybe also MessagePack?
 
 ## Credits:
 Hadrian is a wrapper around @jackc's fantastic pglogrepl and was
